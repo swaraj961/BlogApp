@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'auth.dart';
+import 'package:flutter_awesome_alert_box/flutter_awesome_alert_box.dart';
 
 class LoginScreen extends StatefulWidget {
   final Authentication auth;
@@ -20,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   FormType _formType = FormType.login;
   // String _email = "";
   // String _pass = "";
+  bool _obscureText = true;
   TextEditingController emailTextEditcontroller = TextEditingController();
   TextEditingController passTextEditcontroller = TextEditingController();
 
@@ -40,18 +42,30 @@ class _LoginScreenState extends State<LoginScreen> {
           String email = emailTextEditcontroller.text;
           String password = passTextEditcontroller.text;
           String userid = await widget.auth.signIN(email, password);
+          SuccessAlertBox(
+              context: context,
+              title: "Congratulation",
+              messageText: "Login succesfully");
 
           print("Login UserID =" + userid);
         } else {
           String email = emailTextEditcontroller.text;
           String password = passTextEditcontroller.text;
           String userid = await widget.auth.signUP(email, password);
+          SuccessAlertBox(
+              context: context,
+              title: "Congratulation",
+              messageText: "Your account has been created succesfully");
 
           print("Register UserID =" + userid);
         }
         widget.onSignedIn();
       } catch (e) {
-        print("Error is " + e.toString());
+        WarningAlertBoxCenter(
+          messageText: "Error = " + e.toString(),
+          context: context,
+        );
+        // print("Error is " + e.toString());
       }
     }
   }
@@ -145,6 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
         height: 10,
       ),
       TextFormField(
+        obscureText: _obscureText,
         controller: passTextEditcontroller,
         validator: (password) {
           return password.isEmpty || password.length < 6
@@ -152,7 +167,16 @@ class _LoginScreenState extends State<LoginScreen> {
               : null;
         },
         decoration: InputDecoration(
-            labelText: 'Password', hintText: 'Enter your password'),
+            suffixIcon: GestureDetector(
+              child: Icon(Icons.visibility),
+              onTap: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+              },
+            ),
+            labelText: 'Password',
+            hintText: 'Enter your password'),
       ),
       SizedBox(
         height: 10,

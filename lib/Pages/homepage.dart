@@ -1,6 +1,8 @@
 import 'package:blog_app/Pages/auth.dart';
+import 'package:blog_app/Pages/login.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_awesome_alert_box/flutter_awesome_alert_box.dart';
 
 class HomePage extends StatefulWidget {
   final Authentication auth;
@@ -19,6 +21,13 @@ class _HomePageState extends State<HomePage> {
     try {
       await widget.auth.signout();
       widget.onSignedOut();
+
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      SuccessBgAlertBox(
+          context: context,
+          title: "You have been logout successfully",
+          infoMessage: 'Login to continue');
     } catch (e) {
       print("Error is " + e.toString());
     }
@@ -56,7 +65,17 @@ class _HomePageState extends State<HomePage> {
                 size: 30,
                 color: Colors.white,
               ),
-              onPressed: logoutUser)
+              onPressed: () {
+                // ConfirmAlertBox(
+                //   context: context,
+                //   title: "You will be logout",
+                //   infoMessage: "Do you want to proceed ?",
+                //   onPressedYes: logoutUser,
+                // );
+                setState(() {
+                  logoutUser();
+                });
+              })
         ],
         onTap: (index) {
           _page = index;
