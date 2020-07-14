@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_auth: ^0.16.1
-  
+  curved_navigation_bar: ^0.3.3
 
   firebase_core: ^0.4.5
 

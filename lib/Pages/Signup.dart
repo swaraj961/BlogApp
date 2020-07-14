@@ -1,22 +1,20 @@
-import 'package:blog_app/Pages/Signup.dart';
-
+import 'package:blog_app/Pages/auth.dart';
+import 'package:blog_app/Pages/login.dart';
 import 'package:flutter/material.dart';
-import 'auth.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   final Authentication auth;
   final VoidCallback onSignedIn;
 
-  const LoginScreen({Key key, this.auth, this.onSignedIn}) : super(key: key);
-
+  const SignUpScreen({Key key, this.auth, this.onSignedIn}) : super(key: key);
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
 // * to differnciate b/w the login and register page
 enum FormType { login, register }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   // * to get the form login state
   final formkey = new GlobalKey<FormState>();
   FormType _formType = FormType.login;
@@ -38,18 +36,18 @@ class _LoginScreenState extends State<LoginScreen> {
   void validateAndSubmit() async {
     if (validateAndSave()) {
       try {
-        if (_formType == FormType.login) {
-          String email = emailTextEditcontroller.text;
-          String password = passTextEditcontroller.text;
-          String userid = await widget.auth.signIN(email, password);
-
-          print("Login UserID =" + userid);
-        } else {
+        if (_formType == FormType.register) {
           String email = emailTextEditcontroller.text;
           String password = passTextEditcontroller.text;
           String userid = await widget.auth.signUP(email, password);
 
           print("Register UserID =" + userid);
+        } else {
+          String email = emailTextEditcontroller.text;
+          String password = passTextEditcontroller.text;
+          String userid = await widget.auth.signIN(email, password);
+
+          print("Login UserID =" + userid);
         }
         widget.onSignedIn();
       } catch (e) {
@@ -64,8 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() {
       _formType = FormType.register;
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SignUpScreen()));
     });
   }
 
@@ -118,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
-            'Please sign in to continue.',
+            'Please sign up to continue.',
             style: TextStyle(
                 color: Colors.grey[600],
                 fontWeight: FontWeight.w400,
@@ -182,22 +178,20 @@ class _LoginScreenState extends State<LoginScreen> {
         height: 10,
       ),
       RaisedButton(
-        color: Colors.green,
-        textColor: Colors.white,
-        child:
-            Text('Login', style: TextStyle(fontSize: 20, color: Colors.white)),
-        onPressed: validateAndSubmit,
-      ),
-      SizedBox(
-        height: 5,
-      ),
-      RaisedButton(
         color: Colors.red,
         textColor: Colors.white,
-        child: Text('New? Create a Account',
+        child: Text('Create a Account',
+            style: TextStyle(fontSize: 18, color: Colors.white)),
+        onPressed: validateAndSubmit,
+      ),
+      RaisedButton(
+        color: Colors.green,
+        textColor: Colors.white,
+        child: Text('Already have account ? Login',
             style: TextStyle(fontSize: 14, color: Colors.white)),
-        onPressed: moveToRegister,
-      )
+        onPressed: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen())),
+      ),
     ];
   }
 }
