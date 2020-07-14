@@ -1,5 +1,3 @@
-import 'package:blog_app/Pages/Signup.dart';
-
 import 'package:flutter/material.dart';
 import 'auth.dart';
 
@@ -64,8 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() {
       _formType = FormType.register;
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SignUpScreen()));
     });
   }
 
@@ -177,27 +173,52 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   List<Widget> createButton() {
-    return [
-      SizedBox(
-        height: 10,
-      ),
-      RaisedButton(
-        color: Colors.green,
-        textColor: Colors.white,
-        child:
-            Text('Login', style: TextStyle(fontSize: 20, color: Colors.white)),
-        onPressed: validateAndSubmit,
-      ),
-      SizedBox(
-        height: 5,
-      ),
-      RaisedButton(
-        color: Colors.red,
-        textColor: Colors.white,
-        child: Text('New? Create a Account',
-            style: TextStyle(fontSize: 14, color: Colors.white)),
-        onPressed: moveToRegister,
-      )
-    ];
+    if (_formType == FormType.login) {
+      return [
+        SizedBox(
+          height: 10,
+        ),
+        RaisedButton(
+          color: Colors.green,
+          textColor: Colors.white,
+          child: Text('Login',
+              style: TextStyle(fontSize: 20, color: Colors.white)),
+          onPressed: validateAndSubmit,
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        RaisedButton(
+          color: Colors.red,
+          textColor: Colors.white,
+          child: Text('New? Create a Account',
+              style: TextStyle(fontSize: 14, color: Colors.white)),
+          onPressed: moveToRegister,
+        )
+      ];
+    } else {
+      return [
+        SizedBox(
+          height: 10,
+        ),
+        RaisedButton(
+          color: Colors.green,
+          textColor: Colors.white,
+          child: Text('Create an account',
+              style: TextStyle(fontSize: 20, color: Colors.white)),
+          onPressed: validateAndSubmit,
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        RaisedButton(
+          color: Colors.red,
+          textColor: Colors.white,
+          child: Text('Account Exist ? Login',
+              style: TextStyle(fontSize: 14, color: Colors.white)),
+          onPressed: moveToLogin,
+        )
+      ];
+    }
   }
 }
