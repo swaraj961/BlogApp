@@ -10,7 +10,7 @@ class BlogApp extends StatelessWidget {
     return MaterialApp(
       title: 'BlogApp',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        // primarySwatch: Colors.purple,
         primaryColor: Color(0xff00BFA6),
       ),
       home: Mapping(

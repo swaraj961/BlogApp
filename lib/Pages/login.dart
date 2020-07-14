@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'auth.dart';
 import 'package:flutter_awesome_alert_box/flutter_awesome_alert_box.dart';
 
@@ -19,8 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   // * to get the form login state
   final formkey = new GlobalKey<FormState>();
   FormType _formType = FormType.login;
-  // String _email = "";
-  // String _pass = "";
+  bool showspinner = false;
   bool _obscureText = true;
   TextEditingController emailTextEditcontroller = TextEditingController();
   TextEditingController passTextEditcontroller = TextEditingController();
@@ -47,6 +47,10 @@ class _LoginScreenState extends State<LoginScreen> {
               title: "Congratulation",
               messageText: "Login succesfully");
 
+          setState(() {
+            showspinner = false;
+          });
+
           print("Login UserID =" + userid);
         } else {
           String email = emailTextEditcontroller.text;
@@ -61,10 +65,14 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         widget.onSignedIn();
       } catch (e) {
+        setState(() {
+          showspinner = false;
+        });
         WarningAlertBoxCenter(
           messageText: "Error = " + e.toString(),
           context: context,
         );
+
         // print("Error is " + e.toString());
       }
     }
@@ -90,20 +98,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffeeeeee),
-      appBar: AppBar(
-        title: Text('BlogApp 📑'),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.all(15),
-          child: Form(
-            key: formkey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: createInput() + createButton() + createinfo(),
+    return ModalProgressHUD(
+      // color: Theme.of(context).primaryColor,
+      inAsyncCall: showspinner,
+      child: Scaffold(
+        backgroundColor: Color(0xffeeeeee),
+        appBar: AppBar(
+          title: Text('BlogApp 📑'),
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.all(15),
+            child: Form(
+              key: formkey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: createInput() + createButton() + createinfo(),
+              ),
             ),
           ),
         ),
@@ -212,7 +224,12 @@ class _LoginScreenState extends State<LoginScreen> {
           textColor: Colors.white,
           child: Text('Login',
               style: TextStyle(fontSize: 20, color: Colors.white)),
-          onPressed: validateAndSubmit,
+          onPressed: () {
+            validateAndSubmit();
+            setState(() {
+              showspinner = true;
+            });
+          },
         ),
         SizedBox(
           height: 5,
