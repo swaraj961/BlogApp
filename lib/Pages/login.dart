@@ -77,21 +77,24 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('BlogApp'),
-          centerTitle: true,
+      backgroundColor: Color(0xffeeeeee),
+      appBar: AppBar(
+        title: Text('BlogApp 📑'),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.all(15),
+          child: Form(
+            key: formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: createInput() + createButton() + createinfo(),
+            ),
+          ),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-              margin: EdgeInsets.all(15),
-              child: Form(
-                key: formkey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: createInput() + createButton(),
-                ),
-              )),
-        ));
+      ),
+    );
   }
 
 // *Creating a function to return basically list of widget in the form
@@ -176,9 +179,11 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formType == FormType.login) {
       return [
         SizedBox(
-          height: 10,
+          height: 15,
         ),
         RaisedButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.green,
           textColor: Colors.white,
           child: Text('Login',
@@ -189,6 +194,8 @@ class _LoginScreenState extends State<LoginScreen> {
           height: 5,
         ),
         RaisedButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.red,
           textColor: Colors.white,
           child: Text('New? Create a Account',
@@ -199,9 +206,11 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       return [
         SizedBox(
-          height: 10,
+          height: 15,
         ),
         RaisedButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.green,
           textColor: Colors.white,
           child: Text('Create an account',
@@ -212,6 +221,8 @@ class _LoginScreenState extends State<LoginScreen> {
           height: 5,
         ),
         RaisedButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.red,
           textColor: Colors.white,
           child: Text('Account Exist ? Login',
@@ -221,4 +232,22 @@ class _LoginScreenState extends State<LoginScreen> {
       ];
     }
   }
+}
+
+List<Widget> createinfo() {
+  return [
+    SizedBox(
+      height: 160,
+    ),
+    Text(
+      'Version 1.0',
+      style: TextStyle(color: Colors.grey, letterSpacing: 1.2),
+      textAlign: TextAlign.center,
+    ),
+    Text(
+      'Developed by © Swaraj',
+      style: TextStyle(color: Colors.grey, letterSpacing: 1.2),
+      textAlign: TextAlign.center,
+    ),
+  ];
 }
