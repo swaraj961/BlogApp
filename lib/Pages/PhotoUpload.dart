@@ -1,3 +1,4 @@
+import 'package:blog_app/Pages/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,6 +13,7 @@ class UploadPhoto extends StatefulWidget {
 
 class _UploadPhotoState extends State<UploadPhoto> {
   String _myvalue;
+  String url;
   File sampleImage;
   final picker = ImagePicker();
   final formkey = GlobalKey<FormState>();
@@ -31,6 +33,55 @@ class _UploadPhotoState extends State<UploadPhoto> {
     } else {
       return false;
     }
+  }
+
+  void uploadImageStatus() async {
+    if (validateAndSave()) {
+      // *putting reference to store images in database
+
+      final StorageReference postImageReference =
+          FirebaseStorage.instance.ref().child("Post Images");
+      var timekey = DateTime.now();
+      final StorageUploadTask uploadTask = postImageReference
+          .child(timekey.toString() + ".jpg")
+          .putFile(sampleImage);
+
+      var imageUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
+      url = imageUrl.toString();
+      print('ImageUrl is' + url);
+
+      goToHomepage();
+      savetoDatabase(url);
+    }
+  }
+
+  void savetoDatabase(url) {
+    var dbTimekey = DateTime.now();
+    var formatDate = DateFormat('MMM d,yyyy');
+    var formatTime = DateFormat('EEEE,hh:mm aaa');
+
+// *To get the date and time seprately in flutter
+
+    String date = formatDate.format(dbTimekey);
+    String time = formatTime.format(dbTimekey);
+
+    // *Creating database reference
+
+    DatabaseReference reference = FirebaseDatabase.instance.reference();
+
+    // *data object map
+    var data = {
+      "image": url,
+      "desciption": _myvalue,
+      "date": date,
+      "time": time,
+    };
+    reference.child("Posts").push().set(data);
+  }
+
+  void goToHomepage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   Widget enableUpload() {
@@ -57,8 +108,10 @@ class _UploadPhotoState extends State<UploadPhoto> {
                   validator: (value) {
                     return value.isEmpty ? 'Description in required' : null;
                   },
-                  onSaved: (value) {
-                    return _myvalue = value;
+                  onChanged: (value) {
+                    setState(() {
+                      _myvalue = value;
+                    });
                   },
                 ),
               ),
@@ -66,7 +119,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
                 height: 15.0,
               ),
               RaisedButton(
-                onPressed: validateAndSave,
+                onPressed: uploadImageStatus,
                 elevation: 10,
                 textColor: Colors.white,
                 color: Theme.of(context).primaryColor,

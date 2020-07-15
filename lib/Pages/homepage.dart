@@ -1,6 +1,5 @@
 import 'package:blog_app/Pages/PhotoUpload.dart';
 import 'package:blog_app/Pages/auth.dart';
-import 'package:blog_app/Pages/login.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_alert_box/flutter_awesome_alert_box.dart';
@@ -48,14 +47,14 @@ class _HomePageState extends State<HomePage> {
         items: <Widget>[
           IconButton(
               icon: Icon(
-                Icons.file_upload,
+                Icons.rss_feed,
                 size: 30,
                 color: Colors.white,
               ),
               onPressed: null),
           IconButton(
               icon: Icon(
-                Icons.add,
+                Icons.file_upload,
                 size: 30,
                 color: Colors.white,
               ),

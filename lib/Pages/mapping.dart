@@ -1,8 +1,8 @@
 import 'package:blog_app/Pages/homepage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'login.dart';
-import 'package:blog_app/main.dart';
+
 import 'auth.dart';
 
 class Mapping extends StatefulWidget {
