@@ -1,3 +1,4 @@
+import 'package:blog_app/Pages/PhotoUpload.dart';
 import 'package:blog_app/Pages/auth.dart';
 import 'package:blog_app/Pages/login.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -58,7 +59,14 @@ class _HomePageState extends State<HomePage> {
                 size: 30,
                 color: Colors.white,
               ),
-              onPressed: null),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UploadPhoto(),
+                  ),
+                );
+              }),
           IconButton(
             icon: Icon(
               Icons.power_settings_new,
