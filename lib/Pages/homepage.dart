@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
       //     context, MaterialPageRoute(builder: (context) => LoginScreen()));
       SuccessBgAlertBox(
           context: context,
-          title: "You have been logout successfully",
+          title: "You have been logout",
           infoMessage: 'Login to continue');
     } catch (e) {
       print("Error is " + e.toString());
@@ -60,22 +60,20 @@ class _HomePageState extends State<HomePage> {
               ),
               onPressed: null),
           IconButton(
-              icon: Icon(
-                Icons.power_settings_new,
-                size: 30,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                // ConfirmAlertBox(
-                //   context: context,
-                //   title: "You will be logout",
-                //   infoMessage: "Do you want to proceed ?",
-                //   onPressedYes: logoutUser,
-                // );
-                setState(() {
-                  logoutUser();
-                });
-              })
+            icon: Icon(
+              Icons.power_settings_new,
+              size: 30,
+              color: Colors.white,
+            ),
+            onPressed: logoutUser,
+
+            // ConfirmAlertBox(
+            //   context: context,
+            //   title: "You will be logout",
+            //   infoMessage: "Do you want to proceed ?",
+            //   onPressedYes: logoutUser,
+            // );
+          ),
         ],
         onTap: (index) {
           _page = index;

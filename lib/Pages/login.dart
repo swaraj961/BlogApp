@@ -29,6 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
     final form = formkey.currentState;
     if (form.validate()) {
       form.save();
+      setState(() {
+        showspinner = true;
+      });
       return true;
     } else {
       return false;
@@ -226,9 +229,6 @@ class _LoginScreenState extends State<LoginScreen> {
               style: TextStyle(fontSize: 20, color: Colors.white)),
           onPressed: () {
             validateAndSubmit();
-            setState(() {
-              showspinner = true;
-            });
           },
         ),
         SizedBox(

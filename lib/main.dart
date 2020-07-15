@@ -8,6 +8,7 @@ class BlogApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'BlogApp',
       theme: ThemeData(
         // primarySwatch: Colors.purple,
