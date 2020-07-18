@@ -40,26 +40,28 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     DatabaseReference postRef =
-        FirebaseDatabase.instance.reference().child('posts');
-    postRef.once().then((DataSnapshot snapdata) {
-      var keys = snapdata.value.key;
+        FirebaseDatabase.instance.reference().child('Posts');
+    postRef.once().then(
+      (DataSnapshot snapdata) {
+        postfeed.clear();
 
-      var data = snapdata.value;
-      postfeed.clear();
-
-      for (var individualkey in keys) {
-        Posts posts = Posts(
-          data[individualkey]['image'],
-          data[individualkey]['description'],
-          data[individualkey]['date'],
-          data[individualkey]['time'],
-        );
-        postfeed.add(posts);
-      }
-      setState(() {
-        print("length:$postfeed.Length");
-      });
-    });
+        Map<dynamic, dynamic> values = snapdata.value;
+        values.forEach((key, values) {
+          Posts posts = Posts(
+            values['date'],
+            values['desciption'],
+            values['image'],
+            values['time'],
+          );
+          // print(values["image"]);
+          // print(values['desciption']);
+          // print(values["time"]);
+          // print(values["date"]);
+          postfeed.add(posts);
+          setState(() {});
+        });
+      },
+    );
   }
 
   @override
@@ -139,38 +141,49 @@ class _HomePageState extends State<HomePage> {
       elevation: 12.0,
       margin: EdgeInsets.all(15),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
                   date,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w800,
+                   
+                  ),
                   textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 10,
                 ),
                 Text(
                   time,
-                  style: Theme.of(context).textTheme.subtitle1,
-                  textAlign: TextAlign.center,
-                ),
-                Image.network(
-                  image,
-                  fit: BoxFit.cover,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  description,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w800,
+                   
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Image.network(
+              image,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: Text(
+                description,
+                style: Theme.of(context).textTheme.subtitle1,
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
