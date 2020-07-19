@@ -3,7 +3,11 @@
 ![star](https://img.shields.io/github/stars/swaraj961/BlogApp) ![issues](https://img.shields.io/github/issues/swaraj961/BlogApp) ![fork](https://img.shields.io/github/forks/swaraj961/BlogApp) ![love](https://img.shields.io/badge/open%20%20source-%E2%9D%A4-red) ![flutter](https://img.shields.io/badge/Flutter-Framework-blue) ![dev](https://img.shields.io/badge/Developed%20by%20-Swaraj-orange)
 
 
-# Blog_app &nbsp;
+# Blog_app 
+
+* Add a new blog with image , date, time and description 
+* Material design App with Liquid refresh and Navbar animations
+* Database integration with Firebase Realtime DB
 
 
 # App UI -
