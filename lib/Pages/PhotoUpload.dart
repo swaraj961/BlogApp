@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_awesome_alert_box/flutter_awesome_alert_box.dart';
 
 class UploadPhoto extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class _UploadPhotoState extends State<UploadPhoto> {
   String _myvalue;
   String url;
   File sampleImage;
+   bool showspinner = false;
   final picker = ImagePicker();
   final formkey = GlobalKey<FormState>();
 
@@ -38,7 +41,9 @@ class _UploadPhotoState extends State<UploadPhoto> {
   void uploadImageStatus() async {
     if (validateAndSave()) {
       // *putting reference to store images in database
-
+setState(() {
+    showspinner = true ;
+});
       final StorageReference postImageReference =
           FirebaseStorage.instance.ref().child("Post Images");
       var timekey = DateTime.now();
@@ -49,7 +54,9 @@ class _UploadPhotoState extends State<UploadPhoto> {
       var imageUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
       url = imageUrl.toString();
       print('ImageUrl is' + url);
-
+setState(() {
+    showspinner = false ;
+});
       goToHomepage();
       savetoDatabase(url);
     }
@@ -82,6 +89,10 @@ class _UploadPhotoState extends State<UploadPhoto> {
   void goToHomepage() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => HomePage()));
+        SuccessAlertBox(
+              context: context,
+              title: "Blog",
+              messageText: "Uploaded succesfully");
   }
 
   Widget enableUpload() {
@@ -134,19 +145,23 @@ class _UploadPhotoState extends State<UploadPhoto> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: true,
-      appBar: AppBar(
-        title: Text('Upload Image'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: sampleImage == null ? Text('Select an image') : enableUpload(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Add Image',
-        onPressed: getImage,
-        child: Icon(Icons.add_a_photo),
+    return ModalProgressHUD(
+inAsyncCall: showspinner,
+          child: Scaffold(
+        resizeToAvoidBottomPadding: true,
+        appBar: AppBar(
+          title: Text('Upload Image'),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: sampleImage == null ? Text('Select an image') : enableUpload(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
+          tooltip: 'Add Image',
+          onPressed: getImage,
+          child: Icon(Icons.add_a_photo),
+        ),
       ),
     );
   }
