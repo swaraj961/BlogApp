@@ -6,15 +6,15 @@
 # Blog_app &nbsp;
 
 
-# App UI 
+# App UI -
+Auth Screen and working
 
 <img src="https://github.com/swaraj961/BlogApp/blob/master/demo/Intro%20and%20auth.gif" width="
 30%">&nbsp;&nbsp;&nbsp; 
 &nbsp;&nbsp;<img src="https://github.com/swaraj961/BlogApp/blob/master/demo/Working.gif" width="
 30%">&nbsp;&nbsp;&nbsp; <br>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Auth Screen 🔑&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Working💫
- 
+
  ## Setup
 
   ##### Clone the repository
