@@ -4,7 +4,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_alert_box/flutter_awesome_alert_box.dart';
 import 'Models/post.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,10 +36,16 @@ class _HomePageState extends State<HomePage> {
 
   List<Posts> postfeed = [];
 
-  @override
-  void initState() {
-    super.initState();
-    DatabaseReference postRef =
+Future<dynamic> handleRefresh() async {
+
+setState(() {
+  fetchdata();
+});
+}
+
+
+   Future<dynamic> fetchdata() async {
+     DatabaseReference postRef =
         FirebaseDatabase.instance.reference().child('Posts');
     postRef.once().then(
       (DataSnapshot snapdata) {
@@ -60,9 +66,17 @@ class _HomePageState extends State<HomePage> {
           postfeed.add(posts);
           setState(() {});
         });
-      },
+      }
     );
-  }
+     
+
+   }
+
+ @override
+ void initState() { 
+   super.initState();
+  fetchdata();
+ }
 
   @override
   Widget build(BuildContext context) {
@@ -71,22 +85,26 @@ class _HomePageState extends State<HomePage> {
         title: Text('Home'),
         centerTitle: true,
       ),
-      body: Container(
-        child: postfeed.length == 0
-            ? Center(
-                child: Text(
-                'No blog available',
-                style: Theme.of(context).textTheme.bodyText1,
-              ))
-            : ListView.builder(
-                itemCount: postfeed.length,
-                itemBuilder: (context, index) {
-                  return PostUI(
-                      postfeed[index].image,
-                      postfeed[index].description,
-                      postfeed[index].date,
-                      postfeed[index].time);
-                }),
+      body:LiquidPullToRefresh(
+        onRefresh: handleRefresh,
+        color: Theme.of(context).primaryColor,
+              child: Container(
+          child: postfeed.length == 0
+              ? Center(
+                  child: Text(
+                  'No blog available',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ))
+              : ListView.builder(
+                  itemCount: postfeed.length,
+                  itemBuilder: (context, index) {
+                    return PostUI(
+                        postfeed[index].image,
+                        postfeed[index].description,
+                        postfeed[index].date,
+                        postfeed[index].time);
+                  }),
+        ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
         color: Theme.of(context).primaryColor,

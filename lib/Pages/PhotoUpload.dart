@@ -87,8 +87,12 @@ setState(() {
   }
 
   void goToHomepage() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
+    // Navigator.pushReplacement(
+    //     context, MaterialPageRoute(builder: (context) => HomePage()));
+  
+   setState(() {
+     Navigator.pop(context);
+   });
         SuccessAlertBox(
               context: context,
               title: "Blog",

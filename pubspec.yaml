@@ -31,6 +31,7 @@ dependencies:
   image_picker: ^0.6.7+4
   firebase_storage: ^3.1.6
   firebase_database: ^3.1.6
+  liquid_pull_to_refresh: ^2.0.0
 
   cupertino_icons: ^0.1.3
 
