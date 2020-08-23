@@ -1,7 +1,7 @@
 
-
-![star](https://img.shields.io/github/stars/swaraj961/BlogApp) ![issues](https://img.shields.io/github/issues/swaraj961/BlogApp) ![fork](https://img.shields.io/github/forks/swaraj961/BlogApp) ![love](https://img.shields.io/badge/open%20%20source-%E2%9D%A4-red) ![flutter](https://img.shields.io/badge/Flutter-Framework-blue) ![dev](https://img.shields.io/badge/Developed%20by%20-Swaraj-orange)
-
+![star](https://img.shields.io/github/stars/swaraj961/BlogApp) ![issues](https://img.shields.io/github/issues/swaraj961/BlogApp) ![fork](https://img.shields.io/github/forks/swaraj961/BlogApp) ![love](https://img.shields.io/badge/open%20%20source-%E2%9D%A4-red) ![flutter](https://img.shields.io/badge/Flutter-Framework-blue?logo=flutter) ![Dart](https://img.shields.io/badge/Dart-Language-blue?logo=dart) ![dev](https://img.shields.io/badge/developed%20by%20-swaraj%20routray-orange)
+![GitHub repo size](https://img.shields.io/github/repo-size/swaraj961/BlogApp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 # Blog_app 
 
